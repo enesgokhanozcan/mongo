@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 public class Appointment {
     @Id
-    private UUID id;
+    private String id;
     private String userId;
     private String cityName;
     private String hospitalName;

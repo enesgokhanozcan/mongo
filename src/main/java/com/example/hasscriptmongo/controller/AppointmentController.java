@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Validated
@@ -24,4 +25,13 @@ public class AppointmentController {
     public List<Appointment> findByUserId(@PathVariable("userId") String userId){
         return appointmentService.findByUserId(userId);
     }
+    @DeleteMapping("/delete/{id}")
+    public Boolean deleteById(@PathVariable("id") String id) {
+        return appointmentService.deleteById(id);
+    }
+    @PatchMapping("/patch/{id}/{description}")
+    public Boolean patchById(@PathVariable("id") String id, @PathVariable("description")String description){
+        return appointmentService.patchById(id,description);
+    }
+
 }

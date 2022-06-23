@@ -23,7 +23,7 @@ public class AppointmentService {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Appointment newAppointment=new Appointment();
-        newAppointment.setId(UUID.randomUUID());
+        newAppointment.setId(UUID.randomUUID().toString());
         newAppointment.setUserId(appointmentDto.getUserId());
         newAppointment.setCityName(appointmentDto.getCityName());
         newAppointment.setHospitalName(appointmentDto.getHospitalName());
@@ -37,4 +37,25 @@ public class AppointmentService {
     public List<Appointment> findByUserId(String userId){
         return appointmentRepository.findByUserId(userId);
     }
+
+    public Boolean deleteById(String id){
+        Appointment appointment=appointmentRepository.findById(id);
+            if (Objects.isNull(appointment)) {
+                throw new RuntimeException("There is no such an appointment.");
+            }
+            appointmentRepository.delete(appointment);
+        return true;
+    }
+
+    public Boolean patchById(String id,String description) {
+        Appointment appointment=appointmentRepository.findById(id);
+        appointment.setDescription(description);
+        appointmentRepository.save(appointment);
+        return true;
+    }
+
+
+
+
+
 }
